@@ -39,12 +39,13 @@ def on_message(client, userdata, msg):
 #    {u'_id': u'42', u'_index': u'my-index', u'_type': u'test-type', u'_version': 1, u'ok': True}
 
 #our implementation uses this to separate numeric(float) from string data
+
    try:
       float(msg.payload)
-      es.index(index="my-index", doc_type="numeric", body={"topic" : msg.topic, "dataFloat" : float(msg.payload), "timestamp": datetime.utcnow()})	
+      es.index(index="my-index", doc_type="numeric", body={"topic" : msg.topic, "dataFloat" : float(msg.payload), "timestamp": datetime.utcnow()})
    except:
       es.index(index="my-index", doc_type="string", body={"topic" : msg.topic, "dataString" : msg.payload, "timestamp": datetime.utcnow()})
-    
+
 # by default we connect to elasticSearch on localhost:9200
 es = Elasticsearch()
 
